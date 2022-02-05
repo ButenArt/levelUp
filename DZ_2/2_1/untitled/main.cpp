@@ -6,7 +6,7 @@ void Z1()
     double x;
     double Y;
     printf(" Pervoe zadanie\n");
-    printf(" x = ");
+    //printf(" x = ");
     scanf("%lf", &x);
     //x = M_PI / 3;
     Y = ( (2 * cos(x - M_PI/6) + sqrt(2) ) / ((1 / (2*log(x)))+pow( sin(pow(x,2)),2)))*(exp (3*x));
