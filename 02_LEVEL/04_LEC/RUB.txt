@@ -1,0 +1,64 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <unordered_map>
+#include <ctime>
+#include <stdio.h>
+#include <string.h>
+#include <windows.h>
+
+std::string conv_word (const std::string& word);
+std::unordered_map<std::string, int> take_map(const char* file_name);
+
+int main()
+{
+    auto clock_1 = std::clock();
+    char put[255] ,*p;
+    fgets(put, sizeof(put), stdin);
+    if ( p = strrchr(put, '\n') )
+    *p = '\0';
+    auto count_map = take_map(put);
+    auto clock_2 = std::clock();
+    std::cout << "Time: " <<1000000 * (clock_2 - clock_1) / CLOCKS_PER_SEC << "us" << std::endl;
+}
+
+std::string conv_word (const std::string& word)
+{
+    std::string new_word;
+    for (const char& ch: word)
+    {
+        if (std::isalpha(ch) || std::isdigit(ch))
+            new_word += std::toupper(ch);
+    }
+    return new_word;
+}
+
+std::unordered_map<std::string, int> take_map(const char* file_name)
+{
+    std::unordered_map<std::string, int> count_map;
+
+    std::ifstream file(file_name);
+    std::string word;
+    char wty[255] ,*p;
+    fgets(wty, sizeof(wty), stdin);
+    if ( p = strrchr(wty, '\n') )
+    *p = '\0';
+    int kol = 0;
+    while(file)
+    {
+        file >> word;
+        std::string new_word = conv_word(word);
+        if (!new_word.empty() && (new_word == wty))
+        {
+            ++count_map[new_word];
+            ++kol;
+        }
+    }
+
+    /*for (const std::pair<std::string,int>& value: count_map)
+    {
+         std::cout << value.first << ":" <<value.second << std::endl;
+    }*/
+    std::cout << wty << " : " <<kol << std::endl;
+//    return 0;
+}
